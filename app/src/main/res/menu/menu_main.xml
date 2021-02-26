@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.meeting.ui.MainActivity">
+    <item
+        android:id="@+id/roomFilter"
+        android:orderInCategory="100"
+        android:title="Filtrer par salle"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/dateFilter"
+        android:orderInCategory="100"
+        android:title="Filtrer par date"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/resetFilter"
+        android:orderInCategory="100"
+        android:title="Reinitialiser"
+        app:showAsAction="never" />
+
+</menu>
