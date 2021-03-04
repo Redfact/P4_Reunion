@@ -2,6 +2,7 @@ package com.example.meeting.model;
 
 import android.graphics.Color;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -61,7 +62,8 @@ public class Meeting {
     }
 
     public String getMeetingInfos(){
-        return room.toString()+" - "+date.getHours()+"h"+date.getMinutes()+" - "+subject.toString();
+        SimpleDateFormat format = new SimpleDateFormat("HH'h'mm");
+        return room.toString()+" - "+format.format(date)+" - "+subject.toString();
     }
 
 }

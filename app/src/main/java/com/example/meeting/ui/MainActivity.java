@@ -125,7 +125,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
     }
 
     private void datePickerDialog() {
-        Locale.setDefault(Locale.FRANCE);
+
+//        Locale.setDefault(Locale.FRANCE);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override

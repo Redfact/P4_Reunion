@@ -15,22 +15,28 @@ import com.example.meeting.ui.MainActivity;
 import com.example.meeting.utils.DeleteViewAction;
 import com.example.meeting.utils.RecyclerViewItemCountAssertion;
 
+import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.hasFocus;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.example.meeting.utils.RecyclerViewMatcher.atPosition;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MeetingListTest {
     private static int itemsCount = 6;
     private MainActivity mActivity;
@@ -50,14 +56,13 @@ public class MeetingListTest {
     }
 
     @Test
-    public void testListMeeting(){
-        onView(withId(R.id.mainRecyclerView)).check(matches(isDisplayed()));
-        onView(allOf(withId(R.id.mainRecyclerView), hasFocus())).check(RecyclerViewItemCountAssertion.withItemCount(itemsCount));
+    public void testItemDetails(){
+        onView(withId(R.id.mainRecyclerView)).check(matches(atPosition(index, hasDescendant(withText(meeting.getMeetingInfos())))));
     }
 
     @Test
-    public void testItemDetails(){
-
+    public void testListMeeting(){
+        onView(withId(R.id.mainRecyclerView)).check(matches(isDisplayed()));
     }
 
     @Test
