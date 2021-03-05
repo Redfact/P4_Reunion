@@ -43,7 +43,7 @@ import static org.junit.Assert.assertThat;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MeetingListTest {
-    private static int itemsCount = 6;
+    private static int itemsCount = 5;
     private MainActivity mActivity;
 
     private MeetingApiService meetingApiService= (MeetingApiService) DI.getMeetingApiService();
