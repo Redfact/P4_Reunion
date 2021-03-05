@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class MeetingTest extends TestCase{
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        meeting =  new Meeting(new Date(timeMillis), MeetingRoom.A, MeetingSubject.Mario) ;
+        meeting =  new Meeting(Calendar.getInstance(), MeetingRoom.A, MeetingSubject.Mario) ;
     }
 
     @Test
@@ -35,9 +36,10 @@ public class MeetingTest extends TestCase{
 
     @Test
     public void testGetSetDate() {
-        Date curDate = meeting.getDate();
-        Date newDate = new Date(System.currentTimeMillis()+3600);
-        assertEquals(curDate,new Date(timeMillis));
+        Calendar curDate = meeting.getDate();
+        Calendar newDate = Calendar.getInstance();
+        newDate.add(Calendar.MINUTE,5);
+        assertEquals(curDate,Calendar.getInstance());
 
         meeting.setDate(newDate);
         assertEquals(newDate,meeting.getDate());

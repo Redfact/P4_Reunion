@@ -4,27 +4,29 @@ import android.graphics.Color;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class Meeting {
 
     private List<String> participants;
-    private Date date;
+//    private Date date;
+    private Calendar date;
     private MeetingRoom room;
     private MeetingSubject subject;
-    public Meeting(Date date,MeetingRoom room, MeetingSubject subject){
+    public Meeting(Calendar date,MeetingRoom room, MeetingSubject subject){
         this.date=date;
         this.room=room;
         this.subject=subject;
         participants= new ArrayList<String>();
     }
 
-    public Date getDate() {
+    public Calendar getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 
@@ -63,7 +65,7 @@ public class Meeting {
 
     public String getMeetingInfos(){
         SimpleDateFormat format = new SimpleDateFormat("HH'h'mm");
-        return room.toString()+" - "+format.format(date)+" - "+subject.toString();
+        return room.toString()+"  -  "+format.format(date.getTime())+"  -  "+subject.toString();
     }
 
 }

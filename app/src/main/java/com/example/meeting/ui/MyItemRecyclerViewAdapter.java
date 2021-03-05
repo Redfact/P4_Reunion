@@ -19,6 +19,7 @@ import com.mikhaellopez.circleview.CircleView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -73,9 +74,9 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         }
 
         public  void updateMeetingData(Meeting meeting){
-            int r= 10*meeting.getDate().getHours();
+            int r= 10*meeting.getDate().get(Calendar.HOUR);
             int g= 255;
-            int b=10*meeting.getDate().getMinutes();
+            int b=10*meeting.getDate().get(Calendar.MINUTE);
             meetingInfos.setText(meeting.getMeetingInfos());
             participants.setText(meeting.getParticipantsToString());
             imageView.setCircleColor(Color.rgb(r,g,b));

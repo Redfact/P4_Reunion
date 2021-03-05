@@ -4,6 +4,7 @@ import com.example.meeting.model.Meeting;
 import com.example.meeting.model.MeetingRoom;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface MeetingService {
 
     List<Meeting> getMeetingByRoom(MeetingRoom room);
 
-    List<Meeting> getMeetingByDate(Date date) throws ParseException;
+    List<Meeting> getMeetingByDate(Calendar date) throws ParseException;
 }

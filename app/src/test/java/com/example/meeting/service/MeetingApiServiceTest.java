@@ -9,8 +9,11 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import static com.example.meeting.model.MeetingRoom.C;
 
 public class MeetingApiServiceTest extends TestCase {
     private List<Meeting> meetingList;
@@ -23,6 +26,7 @@ public class MeetingApiServiceTest extends TestCase {
         meetingNumber = meetingApiService.getMeetingList().size();
     }
 
+    @Test
     public void testGetMeetingList() {
         meetingList= meetingApiService.getMeetingList();
         assertEquals(meetingList.size(),meetingApiService.getMeetingList().size());
@@ -32,13 +36,14 @@ public class MeetingApiServiceTest extends TestCase {
         assertEquals(meetingList.get(2),meetingApiService.getMeetingList().get(2));
         assertEquals(meetingList.get(3),meetingApiService.getMeetingList().get(3));
         assertEquals(meetingList.get(4),meetingApiService.getMeetingList().get(4));
-        assertEquals(meetingList.get(5),meetingApiService.getMeetingList().get(5));
 
     }
 
     @Test
     public void testAddDeleteMeeting() {
-        Meeting newMeeting = new Meeting(new Date(System.currentTimeMillis()+(3600000*3)), MeetingRoom.C, MeetingSubject.Luigi);
+        Calendar date = Calendar.getInstance();
+        date.add(Calendar.DAY_OF_MONTH,5);
+        Meeting newMeeting = new Meeting(date, MeetingRoom.C, MeetingSubject.Luigi);
         meetingApiService.addMeeting(newMeeting);
         assertEquals(meetingNumber+1,meetingApiService.getMeetingList().size());
 
@@ -47,8 +52,9 @@ public class MeetingApiServiceTest extends TestCase {
 
     }
 
+    @Test
     public void testGetMeetingByRoom() {
-        MeetingRoom room = MeetingRoom.C;
+        MeetingRoom room = C;
         List<Meeting> meetingsByRoom = meetingApiService.getMeetingByRoom(room);
 
         for (Meeting meeting:meetingsByRoom){
@@ -56,13 +62,16 @@ public class MeetingApiServiceTest extends TestCase {
         }
     }
 
+    @Test
     public void testGetMeetingByDate() {
-        Date today = new Date(System.currentTimeMillis());
+        Calendar today = Calendar.getInstance();
         List<Meeting> meetingsByDate = meetingApiService.getMeetingByDate(today);
 
         for (Meeting meeting:meetingsByDate){
-            assertEquals(meeting.getDate().getDate(),today.getDate());
-            assertEquals(meeting.getDate().getMonth(),today.getMonth());
+            assertEquals(meeting.getDate().get(Calendar.DAY_OF_MONTH),today.get(Calendar.DAY_OF_MONTH));
+            assertEquals(meeting.getDate().get(Calendar.MONTH),today.get(Calendar.MONTH));
+            assertEquals(meeting.getDate().get(Calendar.YEAR),today.get(Calendar.YEAR));
+
         }
     }
 

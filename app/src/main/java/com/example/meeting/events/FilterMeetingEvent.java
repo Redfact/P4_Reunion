@@ -3,6 +3,7 @@ package com.example.meeting.events;
 import com.example.meeting.model.Meeting;
 import com.example.meeting.model.MeetingRoom;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class FilterMeetingEvent {
@@ -11,7 +12,8 @@ public class FilterMeetingEvent {
      * Meeting to delete
      */
     public MeetingRoom meetingRoom;
-    public Date meetingDate;
+//    public Date meetingDate;
+    public Calendar meetingDate;
 
     /**
      * Constructor.
@@ -21,5 +23,5 @@ public class FilterMeetingEvent {
         this.meetingRoom = room;
     }
 
-    public FilterMeetingEvent(Date date){this.meetingDate=date; }
+    public FilterMeetingEvent(Calendar date){this.meetingDate=date; }
 }

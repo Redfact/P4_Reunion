@@ -24,6 +24,7 @@ import org.angmarch.views.OnSpinnerItemSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -54,12 +55,11 @@ public class AddMeetingActivity extends BaseActivity<ActivityAddMeetingBinding>{
             @Override
             public void onClick(View v) {
                 // Set date informations
-                Date date = new Date();
-                date.setHours(binding.hourPicker.getHour());
-                date.setMinutes(binding.hourPicker.getMinute());
-                date.setMonth(binding.datePicker.getMonth());
-                date.setDate(binding.datePicker.getDayOfMonth());
-                Meeting createdMeeting = new Meeting(date,meetingRoom,meetingSubject);
+                Calendar dateCalend = Calendar.getInstance();
+                dateCalend.set(binding.datePicker.getYear(),binding.datePicker.getMonth(),binding.datePicker.getDayOfMonth(),binding.hourPicker.getHour(),binding.hourPicker.getMinute());
+                Log.i("date","New date : "+dateCalend.get(Calendar.DAY_OF_MONTH)+" "+dateCalend.get(Calendar.MONTH)+" "+dateCalend.get(Calendar.YEAR));
+
+                Meeting createdMeeting = new Meeting(dateCalend,meetingRoom,meetingSubject);
 
                 createdMeeting.setParticipants(participantsList);
                 //Add created meeting

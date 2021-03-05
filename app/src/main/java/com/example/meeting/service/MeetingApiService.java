@@ -9,6 +9,7 @@ import com.example.meeting.model.Meeting;
 import com.example.meeting.model.MeetingRoom;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -31,23 +32,27 @@ public class MeetingApiService implements MeetingService {
         return meetingList;
     }
 
-    public boolean canCreateMeeting(Meeting meeting) {
-        Date date = meeting.getDate();
-        for (Meeting curMeeting : meetingList) {
-            Date curDate = curMeeting.getDate();
+    public int getMeetingNumber(){ return meetingList.size();}
 
-            if( curDate.getHours()==date.getHours() &&
-                    curDate.getMinutes()==date.getMinutes() &&
-                    curDate.getDate()==date.getDate() &&
-                    curDate.getMonth()==date.getMonth()
+    public boolean canCreateMeeting(Meeting meeting) {
+        Calendar date = meeting.getDate();
+        for (Meeting curMeeting : meetingList) {
+            Calendar curDate = curMeeting.getDate();
+
+            if(curDate.get(Calendar.MONTH) == date.get(Calendar.MONTH) &&
+                    curDate.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH) &&
+                    curDate.get(Calendar.YEAR) == date.get(Calendar.YEAR) &&
+                    curDate.get(Calendar.HOUR) == date.get(Calendar.HOUR) &&
+                    curDate.get(Calendar.MINUTE) == date.get(Calendar.MINUTE)
 
             ){
-                return false ;
+                return  false ;
             }
 
         }
         return true ;
     }
+
 
     public List<Meeting> getMeetingByRoom(MeetingRoom room){
         List<Meeting> meetings = new ArrayList<Meeting>();
@@ -59,12 +64,13 @@ public class MeetingApiService implements MeetingService {
         return meetings;
     }
 
-
-    public List<Meeting> getMeetingByDate(Date date){
+    public List<Meeting> getMeetingByDate(Calendar date){
         List<Meeting> meetings = new ArrayList<Meeting>();
         for(Meeting meeting:meetingList){
-                Date curDate = meeting.getDate();
-            if(date.getDate()==curDate.getDate() && date.getMonth()==curDate.getMonth() ){
+            Calendar curDate = meeting.getDate();
+            if( curDate.get(Calendar.MONTH) == date.get(Calendar.MONTH) &&
+                    curDate.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH) &&
+                    curDate.get(Calendar.YEAR) == date.get(Calendar.YEAR)) {
                 meetings.add(meeting);
             }
         }

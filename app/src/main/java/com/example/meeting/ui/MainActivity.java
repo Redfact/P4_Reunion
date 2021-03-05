@@ -47,28 +47,25 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
     private List<Meeting> meetingList;
     private MyItemRecyclerViewAdapter adapter;
     private MeetingApiService meetingApiService;
-
-    private Date dateSelected;
-
+    private Calendar date;
     private MeetingRoom meetingRoom;
     private List<String> meetingRoomList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dateSelected = new Date();
+        date = Calendar.getInstance();
         meetingRoomList = new LinkedList(Arrays.asList(MeetingRoom.values()));
         meetingApiService = (MeetingApiService) DI.getMeetingApiService();
         this.configureRecycleView();
 
-        binding.addReunion.setOnClickListener(new View.OnClickListener() {
+        binding.addMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), AddMeetingActivity.class);
                 startActivity(intent, null);
             }
         });
-
     }
 
     @Override
@@ -125,16 +122,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
     }
 
     private void datePickerDialog() {
-
-//        Locale.setDefault(Locale.FRANCE);
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Log.i("filter",dayOfMonth + "-" + (month) + "-" + year);
-                dateSelected.setYear(year);
-                dateSelected.setMonth(month);
-                dateSelected.setDate(dayOfMonth);
+                date.set(year,month,dayOfMonth);
+                Log.i("date",date.get(Calendar.DAY_OF_MONTH)+" "+date.get(Calendar.MONTH)+" "+date.get(Calendar.YEAR));
                 initListMeeting(2);
             }
         },
@@ -159,7 +151,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
             this.meetingList = meetingApiService.getMeetingByRoom(meetingRoom);
         }
         else if (filter == 2){
-            this.meetingList = meetingApiService.getMeetingByDate(dateSelected);
+            this.meetingList = meetingApiService.getMeetingByDate(date);
         }
 
         this.adapter = new MyItemRecyclerViewAdapter(this.meetingList);
@@ -188,7 +180,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
     @Subscribe
     public void onFilterMeeting(FilterMeetingEvent event){
         if(event.meetingDate!=null) {
-            dateSelected = event.meetingDate;
+            date = event.meetingDate;
             initListMeeting(2);
         }
         else {
