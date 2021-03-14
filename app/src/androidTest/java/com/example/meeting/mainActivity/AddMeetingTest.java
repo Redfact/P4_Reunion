@@ -1,19 +1,15 @@
 package com.example.meeting.mainActivity;
 
-import android.widget.DatePicker;
+import android.util.Log;
 
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.meeting.R;
 import com.example.meeting.di.DI;
-import com.example.meeting.model.Meeting;
 import com.example.meeting.service.MeetingApiService;
 import com.example.meeting.ui.AddMeetingActivity;
-import com.example.meeting.ui.MainActivity;
-import com.example.meeting.utils.RecyclerViewItemCountAssertion;
 
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,14 +20,8 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.matcher.ViewMatchers.hasFocus;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static com.example.meeting.model.MeetingSubject.Peach;
-import static java.util.EnumSet.allOf;
 import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -52,6 +42,7 @@ public class AddMeetingTest {
         mActivity = mainActivityActivityTestRule.getActivity();
         assertThat(mActivity,notNullValue());
         meetingNumber = meetingApiService.getMeetingNumber();
+
     }
 
     @Test
@@ -75,6 +66,7 @@ public class AddMeetingTest {
         onView(withId(R.id.addMeetingButton)).perform(scrollTo()).perform(click());
 
         assertEquals(meetingNumber+1, meetingApiService.getMeetingNumber());
+        assertEquals(meetingApiService.getMeetingList().get(meetingNumber).getMeetingInfos(),"Reunion B  -  01h01  -  Peach");
 
     }
 

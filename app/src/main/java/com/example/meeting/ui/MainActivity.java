@@ -2,10 +2,14 @@ package com.example.meeting.ui;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.meeting.R;
 import com.example.meeting.databinding.ActivityMainBinding;
@@ -14,48 +18,24 @@ import com.example.meeting.events.DeleteMeetingEvent;
 import com.example.meeting.events.FilterMeetingEvent;
 import com.example.meeting.model.Meeting;
 import com.example.meeting.model.MeetingRoom;
-import com.example.meeting.model.MeetingSubject;
 import com.example.meeting.service.MeetingApiService;
 
-import androidx.annotation.RequiresApi;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-
-import android.util.Log;
-import android.view.View;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.DatePicker;
-import android.widget.Spinner;
-
-
-import org.angmarch.views.NiceSpinner;
-import org.angmarch.views.OnSpinnerItemSelectedListener;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
-@RequiresApi(api = Build.VERSION_CODES.O)
 public class MainActivity extends BaseActivity<ActivityMainBinding>{
     private List<Meeting> meetingList;
     private MyItemRecyclerViewAdapter adapter;
     private MeetingApiService meetingApiService;
     private Calendar date;
     private MeetingRoom meetingRoom;
-    private List<String> meetingRoomList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         date = Calendar.getInstance();
-        meetingRoomList = new LinkedList(Arrays.asList(MeetingRoom.values()));
         meetingApiService = (MeetingApiService) DI.getMeetingApiService();
         this.configureRecycleView();
 
@@ -104,31 +84,23 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
     }
 
 
-
     private void showDialogRoom(){
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setTitle("Choisir une reunion : ");
         String[] types = MeetingRoom.getRooms();
-        b.setItems(types, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String meetingRoomName = types[which].toString();
-                dialog.dismiss();
-                meetingRoom= MeetingRoom.values()[which];
-                EventBus.getDefault().post(new FilterMeetingEvent(meetingRoom));
-            }
+        b.setItems(types, (dialog, which) -> {
+            dialog.dismiss();
+            meetingRoom= MeetingRoom.values()[which];
+            EventBus.getDefault().post(new FilterMeetingEvent(meetingRoom));
         });
         b.show();
     }
 
     private void datePickerDialog() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                date.set(year,month,dayOfMonth);
-                Log.i("date",date.get(Calendar.DAY_OF_MONTH)+" "+date.get(Calendar.MONTH)+" "+date.get(Calendar.YEAR));
-                initListMeeting(2);
-            }
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+            date.set(year, month, dayOfMonth);
+            Log.i("date",date.get(Calendar.DAY_OF_MONTH)+" "+date.get(Calendar.MONTH)+" "+date.get(Calendar.YEAR));
+            initListMeeting(2);
         },
                 Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
@@ -158,12 +130,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
         binding.mainRecyclerView.setAdapter(this.adapter);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void configureRecycleView(){
         initListMeeting(0);
         this.adapter = new MyItemRecyclerViewAdapter(this.meetingList);
         binding.mainRecyclerView.setAdapter(this.adapter);
-        //Position items
         binding.mainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -182,8 +152,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>{
         if(event.meetingDate!=null) {
             date = event.meetingDate;
             initListMeeting(2);
-        }
-        else {
+        } else {
             meetingRoom = event.meetingRoom;
             initListMeeting(1);
         }

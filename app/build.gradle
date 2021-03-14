@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.reunion"
-        minSdkVersion 22
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -63,7 +63,9 @@ dependencies {
     // INSTRUMENTATION TEST
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     androidTestImplementation ("com.android.support.test.espresso:espresso-intents:3.0.2")
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+
 }

@@ -1,16 +1,14 @@
 package com.example.meeting.ui;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meeting.R;
 import com.example.meeting.events.DeleteMeetingEvent;
@@ -27,7 +25,6 @@ import butterknife.ButterKnife;
 
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
     private final List<Meeting> meetingList;
-
     public MyItemRecyclerViewAdapter(List<Meeting> items) {
         meetingList = items;
     }
@@ -44,13 +41,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         Meeting meeting = meetingList.get(position);
         holder.updateMeetingData(meeting);
 
-        holder.deleteReunion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("del","Click on del button");
-                EventBus.getDefault().post(new DeleteMeetingEvent(meeting));
-            }
-        });
+        holder.deleteReunion.setOnClickListener(v -> EventBus.getDefault().post(new DeleteMeetingEvent(meeting)));
     }
 
     @Override

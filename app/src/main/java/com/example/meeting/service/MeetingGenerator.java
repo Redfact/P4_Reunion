@@ -14,7 +14,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-@RequiresApi(api = Build.VERSION_CODES.O)
 public abstract class MeetingGenerator {
     public static List<Meeting> meetingList = Arrays.asList(
             new Meeting(Calendar.getInstance(),MeetingRoom.A, MeetingSubject.Mario),

@@ -13,7 +13,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-@RequiresApi(api = Build.VERSION_CODES.O)
 public class MeetingApiService implements MeetingService {
 
     private List<Meeting> meetingList = MeetingGenerator.generateReunion();
