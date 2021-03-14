@@ -26,13 +26,4 @@ Application de gestion de reunion
 2. Aller dans `Android Studio` -> `File` -> `Open` et selectionner le dossier 
 
 ### Pourquoi j’ai choisi le langage Java ?
-Pour ce projet qui consiste à réaliser une application de gestion de réunion , j’ai décidé
-d’utiliser le Java.
-J’ai choisi ce langage car lors de ma formation actuelle en développement d’application ,
-mes cours se font surtout sur ce langage . Et avec les projets android que j’ai pu réalisé je
-suis beaucoup plus efficace en terme de temps et de réalisation des tâches en Java.
-Mis à part cela, Java est aussi un langage populaire chez les programmeurs et aussi très
-utilisé dans les entreprises, de ce fait ils n’auront pas de mal à trouver une personne
-compétente . Enfin, étant donné que ce langage est plutôt populaire, il est simple de trouver
-des documentations, ainsi que des ressources utiles qui facilitent grandement la réalisation
-d’un projet.
+Pour ce projet qui consiste à réaliser une application de gestion de réunion, j’ai décidé d’utiliser le Java. J’ai choisi ce langage car lors de ma formation actuelle en développement d’application, mes cours se font surtout sur ce langage. Et avec les projets android que j’ai pu réalisé je suis beaucoup plus efficace en terme de temps et de réalisation des tâches en Java. Mis à part cela, Java est aussi un langage populaire chez les programmeurs et aussi très utilisé dans les entreprises, de ce fait ils n’auront pas de mal à trouver une personne compétente pour maintenir le projet. Enfin, étant donné que ce langage est plutôt populaire, il est simple de trouver des documentations, ainsi que des ressources utiles qui facilitent grandement la réalisation d’un projet.
